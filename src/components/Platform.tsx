@@ -1,14 +1,20 @@
-import Baloon from "./Baloon";
 
-function Platform() {
+// import React, { } from "react";
+import { useGLTF } from "@react-three/drei";
+// import * as THREE from '@three'
+
+export default function BalloonPlatform({position, ...props}) {
+  const { nodes, materials } = useGLTF("/models/balloon-platform.glb");
   return (
-    <group>
-      <Baloon color={"red"} position={[-3, 0, 0]} />
-      <Baloon position={[-1, 0, 0]} />
-      <Baloon position={[1, 0, 0]} />
-      <Baloon position={[3, 0, 0]} />
+    <group {...props} dispose={null} position={position}>
+        <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Balloon_ballon_0006.geometry}
+        material={materials["Material.001"]}
+      />
     </group>
   );
 }
 
-export default Platform;
+useGLTF.preload("/models/balloon-platform.glb");
