@@ -7,6 +7,7 @@ import Spinner from "./components/Spinner";
 
 declare module "@react-three/fiber" {
   interface ThreeElements {
+    //comment
     orbitControls: Object3DNode<OrbitControls, typeof OrbitControls>;
   }
 }
