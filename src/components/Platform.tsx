@@ -1,47 +1,41 @@
-
 // import React, { } from "react";
-import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { Ref, useRef, useState } from "react";
-import { BufferGeometry, Material, Mesh, NormalBufferAttributes } from "three";
+import { useGLTF } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
+import { Ref, useRef, useState } from "react"
+import { BufferGeometry, Material, Mesh, NormalBufferAttributes } from "three"
 // import * as THREE from '@three'
 
-export default function BalloonPlatform({position, ...props}) {
-  const { nodes, materials } = useGLTF("/models/balloon-platform.glb");
-  
-  const [ locked, setLocked ] = useState(false);
+export default function BalloonPlatform({ position, ...props }) {
+  const { nodes, materials } = useGLTF("/models/balloon-platform.glb")
 
-  const meshRef = useRef<Mesh>(null!);
+  const [locked, setLocked] = useState(false)
 
-  
-  console.log(meshRef?.current?.position.y);
+  const meshRef = useRef<Mesh>(null!)
+
+  console.log(meshRef?.current?.position.y)
 
   function moveBalloonUp() {
-
     if (!locked) {
-      meshRef.current.position.y += 0.01;
+      meshRef.current.position.y += 0.005
     }
-  
   }
- 
-  useFrame(() => { 
-   
+
+  useFrame(() => {
     const handleSpacebarPress = (event: KeyboardEvent) => {
-      if (event.code === 'Space') {
-        setLocked(true);
+      if (event.code === "Space") {
+        setLocked(true)
       }
-    };
+    }
 
     // attach the event listener
-    window.addEventListener('keydown', handleSpacebarPress);
+    window.addEventListener("keydown", handleSpacebarPress)
 
-    moveBalloonUp();
-  
-  });
+    moveBalloonUp()
+  })
 
   return (
     <group {...props} dispose={null} position={position}>
-        <mesh
+      <mesh
         ref={meshRef}
         castShadow
         receiveShadow
@@ -49,7 +43,7 @@ export default function BalloonPlatform({position, ...props}) {
         material={materials["Material.001"]}
       />
     </group>
-  );
+  )
 }
 
-useGLTF.preload("/models/balloon-platform.glb");
+useGLTF.preload("/models/balloon-platform.glb")
