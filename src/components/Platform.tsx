@@ -16,7 +16,7 @@ export default function BalloonPlatform({ position, ...props }) {
 
   function moveBalloonUp() {
     if (!locked) {
-      meshRef.current.position.y += 0.005
+      meshRef.current.position.y += 0.015
     }
   }
 

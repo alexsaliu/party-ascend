@@ -13,10 +13,10 @@ export default function Spinner() {
 
   return (
     <group>
-      <Bottle setColor={setColor} position={[0, 1, 0]} />
+      <Bottle setColor={setColor} position={[0, 1.5, 0]} />
       <Image
-        position={[0, 1, 0]}
-        scale={[0.3, 0.3]}
+        position={[0, 1.5, 0]}
+        scale={[0.5, 0.5]}
         url="/images/spin.png"
         transparent
         toneMapped={false}
