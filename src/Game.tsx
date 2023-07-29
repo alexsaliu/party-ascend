@@ -5,8 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import PlatformSpawnManager from "./components/PlatformSpawnManager";
 import Spinner from "./components/Spinner";
 import { CharacterController } from "./components/CharacterController";
-import PieCollider from "./components/PieCollider";
-
+import SpinnerPlatform from "./components/SpinnerPlatform";
 
 declare module "@react-three/fiber" {
 	interface ThreeElements {
@@ -34,7 +33,7 @@ function Game() {
 				{/* <PlatformSpawnManager /> */}
 				<Spinner />	
 				<group position-y={-1}>
-					<PieCollider />
+					<SpinnerPlatform scale={[.24, .24, .24]} position-y={.1}/>
 					<CharacterController />
 				</group>
 			</>

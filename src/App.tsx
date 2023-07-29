@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import Game from "./Game.tsx";
-import { Environment, Lightformer, KeyboardControls } from "@react-three/drei";
-import { Suspense, useMemo } from "react";
+import { Environment,  KeyboardControls } from "@react-three/drei";
+import {  useMemo } from "react";
 import { Physics } from "@react-three/rapier";
 
 export const Controls = {
