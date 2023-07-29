@@ -8,7 +8,7 @@ export default function Spinner() {
   const [color, setColor] = useState("#FF0000")
 
   useEffect(() => {
-    console.log(color)
+    // console.log(color, 'bottle color')
   }, [color])
 
   return (

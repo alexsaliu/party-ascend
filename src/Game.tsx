@@ -2,13 +2,11 @@ import { useRef } from "react";
 import { extend, useThree, useFrame, Object3DNode } from "@react-three/fiber";
 import { Mesh } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import PlatformSpawnManager from "./components/PlatformSpawnManager";
+// import PlatformSpawnManager from "./components/PlatformSpawnManager";
 import Spinner from "./components/Spinner";
 import { CharacterController } from "./components/CharacterController";
-import { CylinderCollider, RigidBody } from "@react-three/rapier";
-import {
-  Cylinder,
-} from "@react-three/drei";
+import PieCollider from "./components/PieCollider";
+
 
 declare module "@react-three/fiber" {
 	interface ThreeElements {
@@ -33,20 +31,10 @@ function Game() {
 	return (
 			<>
 				<orbitControls args={[camera, gl.domElement]} />
-				<PlatformSpawnManager />
-				<Spinner />
+				{/* <PlatformSpawnManager /> */}
+				<Spinner />	
 				<group position-y={-1}>
-					<RigidBody
-					colliders={false}
-					type="fixed"
-					position-y={-0.5}
-					friction={2}
-					>
-					<CylinderCollider args={[1 / 2, 5]} />
-					<Cylinder scale={[5, 1, 5]} receiveShadow>
-						<meshStandardMaterial color="white" />
-					</Cylinder>
-					</RigidBody>
+					<PieCollider />
 					<CharacterController />
 				</group>
 			</>

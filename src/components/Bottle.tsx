@@ -10,7 +10,7 @@ type BottleProps = {
 
 export default function Bottle({ setColor, ...props }: BottleProps) {
   const { nodes } = useGLTF("/models/bottle.glb")
-  console.log(nodes)
+  // console.log(nodes)
   const bottle = useRef<Mesh>(null)
   //   useFrame((state, delta) => {
   //     if (bottle.current) {
@@ -42,7 +42,7 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
       z: `+=${spin}`,
       duration: 1.5,
       ease: "Power3.easeOut",
-      onComplete: () => setColor("thing"),
+      // onComplete: () => setColor("thing"),
     })
   }
 
