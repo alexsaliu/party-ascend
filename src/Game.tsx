@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import { extend, useThree, useFrame, Object3DNode } from "@react-three/fiber";
+import { extend, useFrame, Object3DNode } from "@react-three/fiber";
 import { Mesh } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import PlatformSpawnManager from "./components/PlatformSpawnManager";
 import Spinner from "./components/Spinner";
 import { CharacterController } from "./components/CharacterController";
-import SpinnerPlatform from "./components/SpinnerPlatform";
+// import SpinnerPlatform from "./components/SpinnerPlatform";
 import SpinnerPlatform2 from "./components/SpinnerPlatform2";
 
 declare module "@react-three/fiber" {
@@ -18,7 +18,7 @@ declare module "@react-three/fiber" {
 function Game() {
 	const boxRef = useRef<Mesh>(null);
 
-	const { camera, gl } = useThree();
+	// const { camera, gl } = useThree();
 
 	extend({ OrbitControls });
 
