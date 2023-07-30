@@ -3,12 +3,9 @@ import { useFrame } from "@react-three/fiber"
 import { useGLTF, MeshTransmissionMaterial } from "@react-three/drei"
 import { Mesh } from "three"
 import gsap from "gsap"
+import { useStore } from "../store.ts"
 
-type BottleProps = {
-  setColor: (color: string) => void
-}
-
-export default function Bottle({ setColor, ...props }: BottleProps) {
+export default function Bottle() {
   const { nodes } = useGLTF("/models/bottle.glb")
   // console.log(nodes)
   const bottle = useRef<Mesh>(null)
@@ -18,11 +15,17 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
   //     }
   //   })
 
+  const setColor = useStore((state) => state.setColor)
+  const color = useStore((state) => state.color)
+  const colorName = useStore((state) => state.colorName)
+  console.log(color)
+  console.log(colorName)
+
   const colorMap = {
     green: "#a2f4c1",
     blue: "#a6e7f0",
     yellow: "#fce177",
-    red: "#f26c73",
+    red: "#f26c73"
   }
 
   const colors = [...Object.keys(colorMap), ...Object.keys(colorMap)]
@@ -32,8 +35,8 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
     const radians = rotation % circle
     const pieSlice = circle / 8
     const index = Math.floor(radians / pieSlice)
-    const color = colors[index]
-    setColor(color)
+    const newColor = colors[index]
+    setColor(newColor)
   }
 
   const spinAnimation = (object: Mesh, spin: number) => {
@@ -41,7 +44,7 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
     gsap.to(object.rotation, {
       z: `+=${spin}`,
       duration: 1.5,
-      ease: "Power3.easeOut",
+      ease: "Power3.easeOut"
       // onComplete: () => setColor("thing"),
     })
   }
@@ -56,7 +59,7 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
   }, [])
 
   return (
-    <group {...props} dispose={null} scale={[2, 2, 2]}>
+    <group dispose={null} scale={[2, 2, 2]}>
       <mesh
         rotation-z={0}
         ref={bottle}
