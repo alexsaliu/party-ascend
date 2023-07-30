@@ -21,5 +21,7 @@ export const useStore = create((set, get) => ({
   setColor: (color: Color) => set({ color: colorMap[color], colorName: color }),
   gameState: gameStates.MENU,
   startGame: () => set({ gameState: gameStates.GAME }),
-  endGame: () => set({ gameState: gameStates.GAME_OVER })
+  endGame: () => set({ gameState: gameStates.GAME_OVER }),
+  colorHovered: "",
+  setColorHovered: (color: Color) => set({ colorHovered: color })
 }))
