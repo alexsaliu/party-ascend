@@ -6,6 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import Spinner from "./components/Spinner";
 import { CharacterController } from "./components/CharacterController";
 import SpinnerPlatform from "./components/SpinnerPlatform";
+import SpinnerPlatform2 from "./components/SpinnerPlatform2";
 
 declare module "@react-three/fiber" {
 	interface ThreeElements {
@@ -29,12 +30,12 @@ function Game() {
 
 	return (
 			<>
-				<orbitControls args={[camera, gl.domElement]} />
+				{/* <orbitControls args={[camera, gl.domElement]} /> */}
 				{/* <PlatformSpawnManager /> */}
 				<Spinner />	
 				<group position-y={-1}>
-					<SpinnerPlatform scale={[.24, .24, .24]} position-y={.1}/>
-					<CharacterController />
+					<SpinnerPlatform2  position-y={.1}/>
+					<CharacterController /> 
 				</group>
 			</>
 	);

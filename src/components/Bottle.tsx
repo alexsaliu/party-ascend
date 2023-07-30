@@ -56,7 +56,7 @@ export default function Bottle({ setColor, ...props }: BottleProps) {
   }, [])
 
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={[2, 2, 2]}>
       <mesh
         rotation-z={0}
         ref={bottle}
