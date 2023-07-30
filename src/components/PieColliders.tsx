@@ -20,39 +20,30 @@ export default function PieColliders(props) {
           if (node instanceof THREE.Mesh) {
             return (
                 <>
-                <RigidBody
-                    colliders={false}
-                    type="fixed"
-                    position-y={-0}
-                    friction={2}
-                >
-                    <CylinderCollider args={[.1, 2.8]} position={[0,0,0]} />
-                </RigidBody>
-              
-              <RigidBody
-                key={index}
-                type="fixed"
-                position-y={0.05}
-                friction={2}
-                colliders="hull"
-                sensor
-                onIntersectionEnter={() => {
-                  setIntersection(true);
-                  console.log(`enter ${colors[index]}`);
-                }}
-                onIntersectionExit={() => setIntersection(false)}
-              >
-                <mesh
-                  name={nodeName}
-                  castShadow
-                  receiveShadow
-                  geometry={node.geometry}
-                  material={materials[colors[index]]}
-                //   visible={false}
-                >
-                     <meshBasicMaterial color="white" transparent opacity={0} />
-                </mesh>
-              </RigidBody>
+                    <RigidBody
+                        key={index}
+                        type="fixed"
+                        position-y={0.05}
+                        friction={2}
+                        colliders="hull"
+                        sensor
+                        onIntersectionEnter={() => {
+                        setIntersection(true);
+                        console.log(`enter ${colors[index]}`);
+                        }}
+                        onIntersectionExit={() => setIntersection(false)}
+                    >
+                        <mesh
+                        name={nodeName}
+                        castShadow
+                        receiveShadow
+                        geometry={node.geometry}
+                        material={materials[colors[index]]}
+                        //   visible={false}
+                        >
+                            <meshBasicMaterial color="white" transparent opacity={0} />
+                        </mesh>
+                    </RigidBody>
               </>
             );
           }
