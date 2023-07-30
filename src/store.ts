@@ -23,5 +23,9 @@ export const useStore = create((set, get) => ({
   startGame: () => set({ gameState: gameStates.GAME }),
   endGame: () => set({ gameState: gameStates.GAME_OVER }),
   colorHovered: "",
-  setColorHovered: (color: Color) => set({ colorHovered: color })
+  setColorHovered: (color: Color) => set({ colorHovered: color }),
+  checkColorMatch: (): boolean => {
+    console.log(get().colorName, get().colorHovered, 'match?')
+    return get().colorName === get().colorHovered
+  } 
 }))

@@ -16,9 +16,10 @@ export default function Bottle() {
   //   })
 
   const setColor = useStore((state) => state.setColor)
+  const checkColorMatch = useStore((state) => state.checkColorMatch)
   const color = useStore((state) => state.color)
   const colorName = useStore((state) => state.colorName)
-  console.log(color)
+  // console.log(color)
   console.log(colorName)
 
   const colorMap = {
@@ -26,6 +27,11 @@ export default function Bottle() {
     blue: "#a6e7f0",
     yellow: "#fce177",
     red: "#f26c73"
+  }
+  
+  function checkFunction(){
+    checkColorMatch()
+    console.log("check", checkColorMatch())
   }
 
   const colors = [...Object.keys(colorMap), ...Object.keys(colorMap)]
@@ -44,8 +50,8 @@ export default function Bottle() {
     gsap.to(object.rotation, {
       z: `+=${spin}`,
       duration: 1.5,
-      ease: "Power3.easeOut"
-      // onComplete: () => setColor("thing"),
+      ease: "Power3.easeOut",
+      onComplete: () => checkFunction(),
     })
   }
 
