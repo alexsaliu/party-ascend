@@ -5,7 +5,7 @@ import { useFrame } from "@react-three/fiber"
 import { RigidBody, CylinderCollider } from "@react-three/rapier"
 import * as THREE from "three"
 import { useStore, gameStates } from "../store.ts"
-// import gsap from 'gsap'
+import gsap from 'gsap'
 
 export default function PieMeshes(props) {
     const group = useRef()
@@ -27,45 +27,49 @@ export default function PieMeshes(props) {
         "Material.003",
         "Material.002"
     ]
-    const colors = ["red", "green", "blue", "yellow"]
+    const colors = ["red1", "green1", "blue1", "yellow1","red2", "green2", "blue2", "yellow2"]
 
     // Create an array of refs for each mesh
     const meshRefs = useRef(filteredNodes.map(() => useRef()));
     const [targetQuaternion, setTargetQuaternion] = useState(new THREE.Quaternion());
-    const speed = 3;
-    
-    useFrame((state) => {
-        if (isSpinning) {
-          const time = state.clock.getElapsedTime();
-          const rotationX = new THREE.Quaternion();
-          rotationX.setFromEuler(new THREE.Euler(time * speed, 0, 0));
-      
-          const rotationY = new THREE.Quaternion();
-          rotationY.setFromEuler(new THREE.Euler(0, time * speed, 0));
-      
-          // Combine the rotations on both axes
-          const rotation = new THREE.Quaternion();
-          rotation.multiplyQuaternions(rotationX, rotationY);
-      
-          // Check if the current rotation is close to the target quaternion
-          const epsilon = 0.01;
-          if (rotation.angleTo(targetQuaternion) < epsilon) {
-            setIsSpinning(false); // Stop spinning when the target is reached
+    const speed = 1;
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [animationStartTime, setAnimationStartTime] = useState(0);
+
+    useFrame(() => {
+        if (isAnimating) {
+            const time = performance.now();
+            const elapsed = time - animationStartTime;
+
+            // Use GSAP's easing function to ease the elapsed time from 0 to 1
+            const progress = Math.min(1, Math.max(0, elapsed / (speed * 1000)));
+
+            // Calculate the current rotation angle using the eased progress
+            const rotationAngle = progress * Math.PI * 2;
+
+            const rotation = new THREE.Quaternion();
+            rotation.setFromEuler(new THREE.Euler(0, rotationAngle, 0));
+
+            // Check if the current rotation is close to the target quaternion
+            const epsilon = 0.01;
+            if (rotation.angleTo(targetQuaternion) < epsilon) {
+            setIsAnimating(false); // Stop animating when the target is reached
             startGame();
-          }
-      
-          // Iterate through the meshRefs array and update each mesh's kinematic rotation
-          meshRefs.current.forEach((meshRef) => {
-            meshRef.current.setNextKinematicRotation(rotation);
-          });
+            }
+
+            // Iterate through the meshRefs array and update each mesh's kinematic rotation
+            meshRefs.current.forEach((meshRef) => {
+            if (meshRef.current) {
+                meshRef.current.setNextKinematicRotation(rotation);
+            }
+            });
         }
-      });
+    });
 
     // Function to start spinning to the target quaternion
     const startSpinning = () => {
-        setIsSpinning(true);
-        // Set the target quaternion here
-        setTargetQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI * 2, 0)));
+        setIsAnimating(true);
+        setAnimationStartTime(performance.now());
     };
 
     useEffect(() =>

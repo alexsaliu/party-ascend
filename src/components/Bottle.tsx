@@ -18,13 +18,17 @@ export default function Bottle() {
   // console.log(color)
 
   const colorMap = {
-    green: "#a2f4c1",
-    blue: "#a6e7f0",
-    yellow: "#fce177",
-    red: "#f26c73"
+    green2: "#a2f4c1",
+    blue1: "#a6e7f0",
+    yellow1: "#fce177",
+    red1: "#f26c73",
+    green1: "#a2f4c1",
+    blue2: "#a6e7f0",
+    yellow2: "#fce177",
+    red2: "#f26c73"
   }
   
-  const colors = [...Object.keys(colorMap), ...Object.keys(colorMap)]
+  const colors = [...Object.keys(colorMap)]
 
   const computeColor = (rotation: number) => {
     const circle = Math.PI * 2
@@ -40,7 +44,7 @@ export default function Bottle() {
   const spinAnimation = (object: Mesh, spin: number) => {
     computeColor(object.rotation.z + spin)
     gsap.to(object.rotation, {
-      delay: 2,
+      // delay: 2,
       z: `+=${spin}`,
       duration: 1.5,
       ease: "Power3.easeOut",

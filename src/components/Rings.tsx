@@ -16,16 +16,16 @@ export default function Rings(props) {
     const [ringsActive, setRingsActive] = React.useState(false);
     const gameState = useStore((state) => state.gameState)
 
-    useFrame((state) => {
-        if (ringsActive && gameState === gameStates.PLATFORMSPIN) {
-            const time = state.clock.getElapsedTime();
-            // Adjust the rotation speed here
-            const rotationSpeed = 3;
-            ring1.current.rotation.z = time * rotationSpeed * .5;
-            ring2.current.rotation.x = time * rotationSpeed * 1.5;
-            ring3.current.rotation.z = time * rotationSpeed;
-        }
-        });
+    // useFrame((state) => {
+    //     if (ringsActive && gameState === gameStates.PLATFORMSPIN) {
+    //         const time = state.clock.getElapsedTime();
+    //         // Adjust the rotation speed here
+    //         const rotationSpeed = 1;
+    //         ring1.current.rotation.z = time * rotationSpeed ;
+    //         ring2.current.rotation.x = time * rotationSpeed ;
+    //         ring3.current.rotation.z = time * rotationSpeed;
+    //     }
+    //     });
 
 
     useEffect(() =>
