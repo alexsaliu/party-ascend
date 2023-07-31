@@ -4,21 +4,17 @@ import { useGLTF, MeshTransmissionMaterial } from "@react-three/drei"
 import { Mesh } from "three"
 import gsap from "gsap"
 import { useStore, gameStates } from "../store.ts"
-
+import {useState} from "react"
 export default function Bottle() {
+
   const { nodes } = useGLTF("/models/bottle.glb")
   // console.log(nodes)
   const bottle = useRef<Mesh>(null)
-  //   useFrame((state, delta) => {
-  //     if (bottle.current) {
-  //       bottle.current.rotation.z -= delta
-  //     }
-  //   })
-
   const setColor = useStore((state) => state.setColor)
   const startPlatformSpin = useStore((state) =>  state.startPlatformSpin)
   const color = useStore((state) => state.color)
   const colorName = useStore((state) => state.colorName)
+  const [visible, setVisible] = useState(false)
   // console.log(color)
 
   const colorMap = {
@@ -60,13 +56,25 @@ export default function Bottle() {
           {
               if(value === gameStates.BOTTLESPIN)
               {
+                  setVisible(true)
                   spinAnimation(bottle.current, Math.random() * 10)
               }
           }
       )
+      const unsubscribePlatfromSpin = useStore.subscribe(
+        (state) => state.gameState,
+        (value) =>
+        {
+            if(value === gameStates.PLATFORMSPIN)
+            {
+                setVisible(false)
+            }
+        }
+    )
       return () =>
       {
         unsubscribeSpinBottle()
+        unsubscribePlatfromSpin()
       }
   }, [])
 
@@ -79,6 +87,7 @@ export default function Bottle() {
         receiveShadow
         geometry={nodes.Object_3.geometry}
         // material={materials.Default}
+        visible={visible}
       >
         <MeshTransmissionMaterial
           distortionScale={0}

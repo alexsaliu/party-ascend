@@ -33,26 +33,33 @@ export default function PieMeshes(props) {
     const meshRefs = useRef(filteredNodes.map(() => useRef()));
     const [targetQuaternion, setTargetQuaternion] = useState(new THREE.Quaternion());
     const speed = 3;
-
+    
     useFrame((state) => {
         if (isSpinning) {
-        const time = state.clock.getElapsedTime();
-        const rotation = new THREE.Quaternion();
-        rotation.setFromEuler(new THREE.Euler(0, time * speed, 0));
-        
-        // Check if the current rotation is close to the target quaternion
-        const epsilon = 0.01;
-        if (rotation.angleTo(targetQuaternion) < epsilon) {
+          const time = state.clock.getElapsedTime();
+          const rotationX = new THREE.Quaternion();
+          rotationX.setFromEuler(new THREE.Euler(time * speed, 0, 0));
+      
+          const rotationY = new THREE.Quaternion();
+          rotationY.setFromEuler(new THREE.Euler(0, time * speed, 0));
+      
+          // Combine the rotations on both axes
+          const rotation = new THREE.Quaternion();
+          rotation.multiplyQuaternions(rotationX, rotationY);
+      
+          // Check if the current rotation is close to the target quaternion
+          const epsilon = 0.01;
+          if (rotation.angleTo(targetQuaternion) < epsilon) {
             setIsSpinning(false); // Stop spinning when the target is reached
             startGame();
-        }
-
-        // Iterate through the meshRefs array and update each mesh's kinematic rotation
-        meshRefs.current.forEach((meshRef) => {
+          }
+      
+          // Iterate through the meshRefs array and update each mesh's kinematic rotation
+          meshRefs.current.forEach((meshRef) => {
             meshRef.current.setNextKinematicRotation(rotation);
-        });
+          });
         }
-    });
+      });
 
     // Function to start spinning to the target quaternion
     const startSpinning = () => {
