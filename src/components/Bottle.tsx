@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useGLTF, MeshTransmissionMaterial } from "@react-three/drei"
 import { Mesh } from "three"
 import gsap from "gsap"
-import { useStore } from "../store.ts"
+import { useStore, gameStates } from "../store.ts"
 
 export default function Bottle() {
   const { nodes } = useGLTF("/models/bottle.glb")
@@ -58,13 +58,31 @@ export default function Bottle() {
     })
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (bottle.current) {
-        spinAnimation(bottle.current, Math.random() * 10)
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (bottle.current) {
+  //       spinAnimation(bottle.current, Math.random() * 10)
+  //     }
+  //   }, 5000)
+  //   return () => window.clearInterval(interval)
+  // }, [])
+  useEffect(() =>
+  {
+      const unsubscribeSpinBottle = useStore.subscribe(
+          (state) => state.gameState,
+          (value) =>
+          {
+              if(value === gameStates.BOTTLESPIN)
+              {
+                  spinAnimation(bottle.current, Math.random() * 10)
+              }
+          }
+      )
+
+      return () =>
+      {
+        unsubscribeSpinBottle()
       }
-    }, 5000)
-    return () => window.clearInterval(interval)
   }, [])
 
   return (

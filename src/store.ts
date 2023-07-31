@@ -1,5 +1,5 @@
 import { create } from "zustand"
-
+import { subscribeWithSelector } from "zustand/middleware";
 export const gameStates = {
   MENU: "MENU",
   BOTTLESPIN: "BOTTLESPIN",
@@ -26,7 +26,8 @@ const colorMap = {
 
 type Color = keyof typeof colorMap
 
-export const useStore = create((set, get) => ({
+export const useStore = create(
+  subscribeWithSelector((set, get) => ({
   color: colorMap.red,
   colorName: "red",
   setColor: (color: Color) => set({ color: colorMap[color], colorName: color }),
@@ -41,4 +42,4 @@ export const useStore = create((set, get) => ({
     console.log(get().colorName, get().colorHovered, 'match?')
     return get().colorName === get().colorHovered
   } 
-}))
+})))
