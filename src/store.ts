@@ -8,15 +8,6 @@ export const gameStates = {
   GAME_OVER: "GAME_OVER"
 }
 
-// - press play/menu
-// - bottle spins
-// - pie platform spin animation
-// - spawn character
-
-// -counter counts down from 5
-// - check function(are colors a match?)
-// - game over /win state
-
 const colorMap = {
   green: "#a2f4c1",
   blue: "#a6e7f0",
@@ -32,6 +23,7 @@ export const useStore = create(
   colorName: "red",
   setColor: (color: Color) => set({ color: colorMap[color], colorName: color }),
   gameState: gameStates.MENU,
+  goToMenu: () => set({ gameState: gameStates.MENU }),
   startBottleSpin: () => set({ gameState: gameStates.BOTTLESPIN }),
   startPlatformSpin: () => set({ gameState: gameStates.PLATFORMSPIN }),
   startGame: () => set({ gameState: gameStates.GAME }),
@@ -39,7 +31,7 @@ export const useStore = create(
   colorHovered: "",
   setColorHovered: (color: Color) => set({ colorHovered: color }),
   checkColorMatch: (): boolean => {
-    console.log(get().colorName, get().colorHovered, 'match?')
+    // console.log(get().colorName, get().colorHovered, 'match?')
     return get().colorName === get().colorHovered
   } 
 })))

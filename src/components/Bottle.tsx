@@ -16,12 +16,10 @@ export default function Bottle() {
   //   })
 
   const setColor = useStore((state) => state.setColor)
-  // const checkColorMatch = useStore((state) => state.checkColorMatch)
   const startPlatformSpin = useStore((state) =>  state.startPlatformSpin)
   const color = useStore((state) => state.color)
   const colorName = useStore((state) => state.colorName)
   // console.log(color)
-  console.log(colorName)
 
   const colorMap = {
     green: "#a2f4c1",
@@ -30,13 +28,6 @@ export default function Bottle() {
     red: "#f26c73"
   }
   
-  function checkFunction(){
-    // checkColorMatch()
-    // console.log("check", checkColorMatch())
-    startPlatformSpin()
-    
-  }
-
   const colors = [...Object.keys(colorMap), ...Object.keys(colorMap)]
 
   const computeColor = (rotation: number) => {
@@ -46,6 +37,8 @@ export default function Bottle() {
     const index = Math.floor(radians / pieSlice)
     const newColor = colors[index]
     setColor(newColor)
+    console.log(colorName)
+
   }
 
   const spinAnimation = (object: Mesh, spin: number) => {
@@ -54,18 +47,10 @@ export default function Bottle() {
       z: `+=${spin}`,
       duration: 1.5,
       ease: "Power3.easeOut",
-      onComplete: () => checkFunction(),
+      onComplete: () => startPlatformSpin(),
     })
   }
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (bottle.current) {
-  //       spinAnimation(bottle.current, Math.random() * 10)
-  //     }
-  //   }, 5000)
-  //   return () => window.clearInterval(interval)
-  // }, [])
   useEffect(() =>
   {
       const unsubscribeSpinBottle = useStore.subscribe(
@@ -78,7 +63,6 @@ export default function Bottle() {
               }
           }
       )
-
       return () =>
       {
         unsubscribeSpinBottle()

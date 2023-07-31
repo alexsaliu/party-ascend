@@ -2,6 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import Game from "./Game.tsx"
 import GameOverModal from "./components/Modals/GameOverModal.tsx"
 import StartModal from "./components/Modals/StartModal.tsx"
+import WinnerModal from "./components/Modals/WinnerModal.tsx"
 import {useStore, gameStates} from "./store"
 import {
   Environment,
@@ -13,9 +14,10 @@ import {
   MeshWobbleMaterial,
   OrbitControls
 } from "@react-three/drei"
-import { useMemo, useState, useRef } from "react"
+import { useMemo, useState, useRef, useEffect } from "react"
 import { Physics } from "@react-three/rapier"
 import * as random from "maath/random/dist/maath-random.esm"
+import { func } from "three/examples/jsm/nodes/Nodes.js"
 
 export const Controls = {
   forward: "forward",
@@ -37,25 +39,49 @@ function App() {
 		[]
 	)
 
-	const { startGame, gameState, goToMenu, startBottleSpin } = useStore((state) => ({
+	const { startGame, gameState, goToMenu, startBottleSpin, checkColorMatch } = useStore((state) => ({
 		startGame: state.startGame,
 		gameState: state.gameState,
 		goToMenu: state.goToMenu,
-		startBottleSpin: state.startBottleSpin
-		
+		startBottleSpin: state.startBottleSpin,
+		checkColorMatch: state.checkColorMatch
 	}));
 
-	function handleStart() {
-			
+	const match = useRef(false);
+
+	function handleStart() {	
 			startBottleSpin();
 			console.log(useStore.getState())
 	}
 
+	function handleRestart() {
+		goToMenu();
+	}
+
+	useEffect(() =>
+	{
+		const unsubscribeGameOver = useStore.subscribe(
+			(state) => state.gameState,
+			(value) =>
+			{
+				if(value === gameStates.GAME_OVER)
+				{
+					match.current = checkColorMatch();
+					console.log("gameOver.current", match.current)
+				}
+			}
+		)
+		return () =>
+		{
+			unsubscribeGameOver()
+		}
+	}, [])
 
 	return (
 		<>
 		<KeyboardControls map={map}>
-			{/* <GameOverModal handleRestart={() => console.log("restart")} /> */}
+			{gameState === gameStates.GAME_OVER && match.current && <WinnerModal handleRestart={handleRestart} />}
+			{gameState === gameStates.GAME_OVER && !match.current && <GameOverModal handleRestart={handleRestart} /> }
 			{gameState === gameStates.MENU && <StartModal handleStart={handleStart} />}
 			<Canvas shadows camera={{ position: [0, 5, 15], fov: 30 }}>
 			<OrbitControls target={[0, 0, 0]} />

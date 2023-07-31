@@ -18,6 +18,7 @@ export default function PieMeshes(props) {
     
     const [isSpinning, setIsSpinning] = useState(false);
     const setColorHovered = useStore((state) => state.setColorHovered)
+    const startGame = useStore((state) => state.startGame)
     const gameState = useStore((state) => state.gameState)
 
     const materialColors = [
@@ -43,6 +44,7 @@ export default function PieMeshes(props) {
         const epsilon = 0.01;
         if (rotation.angleTo(targetQuaternion) < epsilon) {
             setIsSpinning(false); // Stop spinning when the target is reached
+            startGame();
         }
 
         // Iterate through the meshRefs array and update each mesh's kinematic rotation
@@ -59,20 +61,23 @@ export default function PieMeshes(props) {
         setTargetQuaternion(new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI * 2, 0)));
     };
 
-    // Function to stop spinning
-    const stopSpinning = () => {
-        setIsSpinning(false);
-    };
-
-    useEffect(() => {
-        // Call startSpinning function to start spinning when the component mounts
-        if(gameState === gameStates.PLATFORMSPIN){
-            startSpinning();
+    useEffect(() =>
+    {
+        const unsubscribeSpinPlatform = useStore.subscribe(
+            (state) => state.gameState,
+            (value) =>
+            {
+                if(value === gameStates.PLATFORMSPIN)
+                {
+                    startSpinning();
+                }
+            }
+        )
+        return () =>
+        {
+          unsubscribeSpinPlatform()
         }
-        // startSpinning();
-        // Return a cleanup function to stop spinning when the component unmounts
-        return () => stopSpinning();
-    }, [gameState]);
+    }, [])
 
     return (
         <group ref={group} {...props} dispose={null}>
@@ -95,7 +100,7 @@ export default function PieMeshes(props) {
                     sensor
                     onIntersectionEnter={() => {
                     setColorHovered(colors[index % 4])
-                    console.log(`enter ${colors[index % 4]}`)
+                    // console.log(`enter ${colors[index % 4]}`)
                     }}
                 >
                     <mesh
