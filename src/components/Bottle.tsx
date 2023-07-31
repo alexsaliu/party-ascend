@@ -16,7 +16,8 @@ export default function Bottle() {
   //   })
 
   const setColor = useStore((state) => state.setColor)
-  const checkColorMatch = useStore((state) => state.checkColorMatch)
+  // const checkColorMatch = useStore((state) => state.checkColorMatch)
+  const startPlatformSpin = useStore((state) =>  state.startPlatformSpin)
   const color = useStore((state) => state.color)
   const colorName = useStore((state) => state.colorName)
   // console.log(color)
@@ -30,8 +31,10 @@ export default function Bottle() {
   }
   
   function checkFunction(){
-    checkColorMatch()
-    console.log("check", checkColorMatch())
+    // checkColorMatch()
+    // console.log("check", checkColorMatch())
+    startPlatformSpin()
+    
   }
 
   const colors = [...Object.keys(colorMap), ...Object.keys(colorMap)]
@@ -65,7 +68,7 @@ export default function Bottle() {
   }, [])
 
   return (
-    <group dispose={null} scale={[2, 2, 2]}>
+    <group dispose={null} scale={[2, 2, 2]} position={[0,0,0]}>
       <mesh
         rotation-z={0}
         ref={bottle}

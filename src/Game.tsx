@@ -20,7 +20,7 @@ function Game() {
 
 	// const { camera, gl } = useThree();
 
-	extend({ OrbitControls });
+	// extend({ OrbitControls });
 
 	useFrame((state, delta) => {
 		if (boxRef.current) {

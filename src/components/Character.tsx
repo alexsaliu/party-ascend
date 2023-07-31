@@ -5,6 +5,7 @@ export default function Model(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/models/girl.glb");
   const { actions } = useAnimations(animations, group);
+
   return (
     <group ref={group} {...props} dispose={null} scale={[.5, .5, .5]}>
       <group name="Scene">

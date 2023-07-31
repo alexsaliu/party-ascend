@@ -2,6 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import Game from "./Game.tsx"
 import GameOverModal from "./components/Modals/GameOverModal.tsx"
 import StartModal from "./components/Modals/StartModal.tsx"
+import {useStore, gameStates} from "./store"
 import {
   Environment,
   KeyboardControls,
@@ -25,36 +26,52 @@ export const Controls = {
 }
 
 function App() {
-  const map = useMemo(
-    () => [
-      { name: Controls.forward, keys: ["ArrowUp", "KeyW"] },
-      { name: Controls.back, keys: ["ArrowDown", "KeyS"] },
-      { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
-      { name: Controls.right, keys: ["ArrowRight", "KeyD"] },
-      { name: Controls.jump, keys: ["Space"] }
-    ],
-    []
-  )
-  return (
-    <>
-      <KeyboardControls map={map}>
-        {/* <GameOverModal handleRestart={() => console.log("restart")} /> */}
-        {/* <StartModal handleRestart={() => console.log("restart")} /> */}
-        <Canvas shadows camera={{ position: [0, 5, 15], fov: 30 }}>
-          <OrbitControls target={[0, 0, 0]} />
-          <Stars />
-          <WobblySpheres />
-          <Environment
-            files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/dancing_hall_1k.hdr"
-            resolution={1024}
-          />
-          <Physics debug>
-            <Game />
-          </Physics>
-        </Canvas>
-      </KeyboardControls>
-    </>
-  )
+	const map = useMemo(
+		() => [
+		{ name: Controls.forward, keys: ["ArrowUp", "KeyW"] },
+		{ name: Controls.back, keys: ["ArrowDown", "KeyS"] },
+		{ name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
+		{ name: Controls.right, keys: ["ArrowRight", "KeyD"] },
+		{ name: Controls.jump, keys: ["Space"] }
+		],
+		[]
+	)
+
+	const { startGame, gameState, goToMenu, startBottleSpin } = useStore((state) => ({
+		startGame: state.startGame,
+		gameState: state.gameState,
+		goToMenu: state.goToMenu,
+		startBottleSpin: state.startBottleSpin
+		
+	}));
+
+	function handleStart() {
+			
+			startBottleSpin();
+			console.log(useStore.getState())
+	}
+
+
+	return (
+		<>
+		<KeyboardControls map={map}>
+			{/* <GameOverModal handleRestart={() => console.log("restart")} /> */}
+			{gameState === gameStates.MENU && <StartModal handleStart={handleStart} />}
+			<Canvas shadows camera={{ position: [0, 5, 15], fov: 30 }}>
+			<OrbitControls target={[0, 0, 0]} />
+			<Stars />
+			<WobblySpheres />
+			<Environment
+				files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/dancing_hall_1k.hdr"
+				resolution={1024}
+			/>
+			<Physics debug>
+				<Game />
+			</Physics>
+			</Canvas>
+		</KeyboardControls>
+		</>
+	)
 }
 
 export default App

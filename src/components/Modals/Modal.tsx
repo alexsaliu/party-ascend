@@ -5,6 +5,8 @@ type Props = {
 }
 
 const Modal = ({ children }: Props) => {
+ 
+
   return (
     <div className="z-[10000000000000] w-full h-full absolute flex items-center justify-center">
       <div className="absolute bg-black opacity-30 w-full h-full"></div>
