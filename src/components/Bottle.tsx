@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import { useFrame } from "@react-three/fiber"
-import { useGLTF, MeshTransmissionMaterial } from "@react-three/drei"
+import { useGLTF, MeshTransmissionMaterial, Text } from "@react-three/drei"
 import { Mesh } from "three"
 import gsap from "gsap"
 import { useStore, gameStates } from "../store.ts"
@@ -15,15 +15,17 @@ export default function Bottle() {
   const color = useStore((state) => state.color)
   const colorName = useStore((state) => state.colorName)
   const [visible, setVisible] = useState(false)
+  const [textVisible, setTextVisible] = useState(false)
+
   // console.log(color)
 
   const colorMap = {
     green2: "#a2f4c1",
-    blue1: "#a6e7f0",
+    blue2: "#a6e7f0",
     yellow1: "#fce177",
     red1: "#f26c73",
     green1: "#a2f4c1",
-    blue2: "#a6e7f0",
+    blue1: "#a6e7f0",
     yellow2: "#fce177",
     red2: "#f26c73"
   }
@@ -44,7 +46,7 @@ export default function Bottle() {
   const spinAnimation = (object: Mesh, spin: number) => {
     computeColor(object.rotation.z + spin)
     gsap.to(object.rotation, {
-      // delay: 2,
+      delay: 1,
       z: `+=${spin}`,
       duration: 1.5,
       ease: "Power3.easeOut",
@@ -62,6 +64,9 @@ export default function Bottle() {
               {
                   setVisible(true)
                   spinAnimation(bottle.current, Math.random() * 10)
+                  setTimeout(() => {
+                    setTextVisible(true)
+                  }, 2000);
               }
           }
       )
@@ -72,6 +77,7 @@ export default function Bottle() {
             if(value === gameStates.PLATFORMSPIN)
             {
                 setVisible(false)
+                setTextVisible(false)
             }
         }
     )
@@ -105,6 +111,7 @@ export default function Bottle() {
           color={"green"}
         />
       </mesh>
+      <Text visible={textVisible} fontSize={.5} color={color}> {colorName.slice(0, -1)}</Text>
     </group>
   )
 }

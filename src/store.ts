@@ -23,7 +23,7 @@ type Color = keyof typeof colorMap
 
 export const useStore = create(
   subscribeWithSelector((set, get) => ({
-  color: colorMap.red1,
+  color: colorMap.red2,
   colorName: "red",
   setColor: (color: Color) => set({ color: colorMap[color], colorName: color }),
   gameState: gameStates.MENU,

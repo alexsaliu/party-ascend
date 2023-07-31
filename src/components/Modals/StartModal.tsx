@@ -14,6 +14,8 @@ const GameOverModal = ({ handleStart }: Props) => {
         then move your character onto the correct platform before the time runs
         out!
         <br />
+        Careful There is two of every colour!
+        <br />
         Good luck!
       </div>
       <div className="p-6">(👍 ͡❛ ͜ʖ ͡❛)👍</div>

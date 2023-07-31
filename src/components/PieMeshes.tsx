@@ -27,7 +27,7 @@ export default function PieMeshes(props) {
         "Material.003",
         "Material.002"
     ]
-    const colors = ["red1", "green1", "blue1", "yellow1","red2", "green2", "blue2", "yellow2"]
+    const colors = ["red1", "green1", "blue1", "yellow2","red2", "green2", "blue2", "yellow1"]
 
     // Create an array of refs for each mesh
     const meshRefs = useRef(filteredNodes.map(() => useRef()));
@@ -110,16 +110,16 @@ export default function PieMeshes(props) {
                     colliders="hull"
                     sensor
                     onIntersectionEnter={() => {
-                    setColorHovered(colors[index % 4])
+                    setColorHovered(colors[index % 8])
                     // console.log(`enter ${colors[index % 4]}`)
                     }}
                 >
                     <mesh
-                    name={nodeName}
-                    castShadow
-                    receiveShadow
-                    geometry={node.geometry}
-                    material={materials[materialColors[index % 4]]}
+                        name={nodeName}
+                        castShadow
+                        receiveShadow
+                        geometry={node.geometry}
+                        material={materials[materialColors[index % 4]]}
                     >
                     {/* <meshBasicMaterial color="white" transparent opacity={0} /> */}
                     </mesh>
