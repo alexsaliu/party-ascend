@@ -69,6 +69,7 @@ const CameraRig = forwardRef(({props}, ref) => {
                 if(value === gameStates.GAME_OVER)
                 {
                     cameraControlsRef.current.moveTo(0, 0, 0, true)
+					cameraControlsRef.current?.reset(true)
                 }
             }
         )
