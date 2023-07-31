@@ -20,7 +20,6 @@ export default function Barrier(props) {
               receiveShadow
               geometry={nodes.Barrier.geometry}
               material={nodes.Barrier.material}
-          
             //   visible={false}
             >
                 <meshBasicMaterial color="white" transparent opacity={0} />

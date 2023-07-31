@@ -1,19 +1,19 @@
 import { useRef } from "react";
 import { extend, useFrame, Object3DNode } from "@react-three/fiber";
 import { Mesh } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import PlatformSpawnManager from "./components/PlatformSpawnManager";
 import Spinner from "./components/Spinner";
 import { CharacterController } from "./components/CharacterController";
 // import SpinnerPlatform from "./components/SpinnerPlatform";
 import SpinnerPlatform2 from "./components/SpinnerPlatform2";
 
-declare module "@react-three/fiber" {
-	interface ThreeElements {
-		//comment
-		orbitControls: Object3DNode<OrbitControls, typeof OrbitControls>;
-	}
-}
+// declare module "@react-three/fiber" {
+// 	interface ThreeElements {
+// 		//comment
+// 		orbitControls: Object3DNode<OrbitControls, typeof OrbitControls>;
+// 	}
+// }
 
 function Game() {
 	const boxRef = useRef<Mesh>(null);

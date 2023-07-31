@@ -12,8 +12,10 @@ import {
   Float,
   MeshDistortMaterial,
   MeshWobbleMaterial,
-  OrbitControls
+  OrbitControls,
+  CameraControls
 } from "@react-three/drei"
+import CameraRig from "./components/CameraRig.tsx"
 import { useMemo, useState, useRef, useEffect } from "react"
 import { Physics } from "@react-three/rapier"
 import * as random from "maath/random/dist/maath-random.esm"
@@ -50,8 +52,7 @@ function App() {
 	const match = useRef(false);
 
 	function handleStart() {	
-			startBottleSpin();
-			console.log(useStore.getState())
+			startBottleSpin();	
 	}
 
 	function handleRestart() {
@@ -84,14 +85,15 @@ function App() {
 			{gameState === gameStates.GAME_OVER && !match.current && <GameOverModal handleRestart={handleRestart} /> }
 			{gameState === gameStates.MENU && <StartModal handleStart={handleStart} />}
 			<Canvas shadows camera={{ position: [0, 5, 15], fov: 30 }}>
-			<OrbitControls target={[0, 0, 0]} />
+			<CameraRig />
+			{/* <OrbitControls target={[0, 0, 0]} /> */}
 			<Stars />
 			<WobblySpheres />
 			<Environment
 				files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/dancing_hall_1k.hdr"
 				resolution={1024}
 			/>
-			<Physics debug>
+			<Physics >
 				<Game />
 			</Physics>
 			</Canvas>
@@ -101,6 +103,9 @@ function App() {
 }
 
 export default App
+
+
+
 
 function Stars(props) {
   const ref = useRef()

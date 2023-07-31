@@ -44,6 +44,7 @@ export default function Bottle() {
   const spinAnimation = (object: Mesh, spin: number) => {
     computeColor(object.rotation.z + spin)
     gsap.to(object.rotation, {
+      delay: 2,
       z: `+=${spin}`,
       duration: 1.5,
       ease: "Power3.easeOut",
