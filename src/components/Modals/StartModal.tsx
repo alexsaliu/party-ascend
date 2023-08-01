@@ -7,7 +7,7 @@ type Props = {
 const GameOverModal = ({ handleStart }: Props) => {
   return (
     <Modal>
-      <div className="font-bold text-4xl p-2">Welcome to Party Ascend!</div>
+      <div className="font-bold text-4xl p-2">Welcome to Spinception!</div>
       <div className="pt-6 text-center">
         The bottle will spin and point to a platform,
         <br />

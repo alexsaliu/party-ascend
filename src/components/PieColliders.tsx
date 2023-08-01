@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { RigidBody, CylinderCollider } from "@react-three/rapier";

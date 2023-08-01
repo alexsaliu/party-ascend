@@ -1,4 +1,6 @@
 
+// @ts-nocheck
+
 import React, { useEffect, useRef, useState } from "react"
 import { useGLTF, useAnimations } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"

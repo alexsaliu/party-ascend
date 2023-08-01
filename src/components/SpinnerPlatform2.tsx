@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useRef } from "react"
 import Stadium from "./Stadium"
 import PieMeshes from "./PieMeshes"

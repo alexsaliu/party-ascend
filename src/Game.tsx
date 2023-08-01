@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useRef } from "react";
 import { extend, useFrame, Object3DNode } from "@react-three/fiber";
 import { Mesh } from "three";

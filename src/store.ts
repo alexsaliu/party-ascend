@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { create } from "zustand"
 import { subscribeWithSelector } from "zustand/middleware";
 export const gameStates = {

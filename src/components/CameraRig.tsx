@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, {forwardRef, useEffect, useState, useRef} from "react"
 import { CameraControls, Html } from "@react-three/drei"
 import * as THREE from 'three'

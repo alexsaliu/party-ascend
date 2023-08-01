@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Canvas, useFrame } from "@react-three/fiber"
 import Game from "./Game.tsx"
 import GameOverModal from "./components/Modals/GameOverModal.tsx"

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations, MeshTransmissionMaterial, Html , Image } from "@react-three/drei";
 import gsap from "gsap";

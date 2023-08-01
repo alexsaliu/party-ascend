@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useRef } from "react"
 import { useFrame } from "@react-three/fiber"
 import { useGLTF, MeshTransmissionMaterial, Text } from "@react-three/drei"

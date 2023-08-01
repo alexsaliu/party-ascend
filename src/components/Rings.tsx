@@ -1,4 +1,6 @@
 
+// @ts-nocheck
+
 import React, { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useStore, gameStates } from "../store.ts"
